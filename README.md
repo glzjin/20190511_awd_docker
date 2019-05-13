@@ -16,3 +16,5 @@ docker-compose up -d --build
 ```
 
 即可创建四个容器，默认对外暴露服务端口和 SSH 端口。
+
+SSH 默认用户名：glzjin 密码：123456
