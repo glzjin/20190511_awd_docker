@@ -1,0 +1,5 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <h1> 雇员订单管理</h1><br>
+    <a href={{ url_for("show_confirm_waitting_orders") }}> 需要确认发货的订单</a><br><br>
+{% endblock info %}

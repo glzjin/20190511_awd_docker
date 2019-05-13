@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    {% if title %}
+        <title>Flask商城 - {{ title }}</title>
+    {% else %}
+        <title>Flask商城</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="/">Flask商城</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{ url_for('home') }}">商品列表</a>
+               {% if current_user.is_authenticated and current_user.table_name !="Customer" %}
+                   <a class="nav-item nav-link" href="{{ url_for('crew_market') }}">人才市场</a>
+                {% endif %}
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+                {% if current_user.is_authenticated %}
+                    {% if current_user.table_name == "Customer" %}
+                        <a class="nav-item nav-link" href={{ url_for("shopping_car") }}>购物车</a>
+                        <a class="nav-item nav-link" href="{{ url_for("customer_account",username=current_user.username) }}">个人中心</a>
+                        <a class="nav-item nav-link" href="{{ url_for('logout') }}">注销</a>
+                        {% elif current_user.table_name == "Supplier" %}
+                        <a class="nav-item nav-link" href="{{ url_for("supplier_account",username=current_user.username) }}">个人中心</a>
+                        <a class="nav-item nav-link" href="{{ url_for('logout') }}">注销</a>
+                        {%else%}
+                        <a class="nav-item nav-link" href="{{ url_for("crew_account",username=current_user.username) }}">个人中心</a>
+                        <a class="nav-item nav-link" href="{{ url_for('logout') }}">注销</a>
+                    {% endif %}
+                {% else %}
+                    <a class="nav-item nav-link" href="{{ url_for("login") }}">登录</a>
+                  <a class="nav-item nav-link" href="{{ url_for('register') }}">注册</a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-4">
+          <div class="content-section">
+            <h3>Our Sidebar</h3>
+            <p class='text-muted'>You can put any information here you'd like.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Calendars</li>
+                <li class="list-group-item list-group-item-light">etc</li>
+              </ul>
+            </p>
+          </div>
+          <div class="content-section">
+            <h3>Search</h3>
+            <p class='text-muted'>It is not a searcher??? 
+              <ul class="list-group">
+              	<form action="/search" method="post">
+                <input type="text" name="search" class="list-group-item list-group-item-light"><input type="submit" value="search">
+                </form>
+              </ul>
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery-3.2.1.slim.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+</body>
+</html>

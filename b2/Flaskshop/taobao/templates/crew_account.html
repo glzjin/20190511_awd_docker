@@ -1,0 +1,17 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    {% if crew.is_employ !=0 %}
+        <a href={{ url_for("customer_check_supplier_products",id=supplier.id) }}>我的老板：{{ supplier.supplier_name }}</a><br>
+        {% if supplier.mission !="作为老板的你，今天还没有给员工分配任务" %}
+            <br><font size="4" color="#006400">今日任务：<br></font>
+            <div class="article-content"><a >{{ supplier.mission }} </a></div>
+            {% else %}
+                <a >今日任务：老板今天没有布置什么特别哦  </a><br>
+            {% endif %}<br>
+        <a href={{ url_for("crew_order_manager") }}>完成顾客的订单</a><br>
+    {% else %}
+        <a>不好意思，目前为止你还没有被老板雇佣呢！</a><br>
+    {% endif %}
+    <a href={{ url_for("security_check") }}>管理我的基本信息</a><br>
+    <a href={{ url_for("update_crew_info") }}>完善我的求职信息 </a><br>
+{% endblock info %}

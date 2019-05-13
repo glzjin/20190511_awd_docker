@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <h1>订单详情</h1><br>
+        <font size="5" color="green">总价格 ：{{ order.total_price }}</font><br>
+        <a >订单编号：{{order_address.order_id }}</a><br>
+    <a >收货人：{{ order_address.consignee }}</a><br>
+        <a>电话:{{ order_address.telephone }}</a><br>
+        <a >收货地址：{{ order_address.address }}</a><br>
+    </div>
+        {% if orderdetails %}
+
+            {% for detail in orderdetails %}
+            <div class="content-section">
+                <a>商品细节</a><br>
+            <a >商家：{{ detail.product.supplier.first().supplier_name}}</a><br>
+                <a >商品：{{ detail.product.name }}</a><br>
+                <a >价格：{{ detail.product.price }}</a><br>
+                <a >订购数量：{{ detail.product_count}}</a><br>
+                <div >
+
+
+            </div>
+            {% endfor %}
+            </div>
+    {% endif %}
+    {% if current_user.table_name =="Crew"%}
+        <div class="content-section">
+        <font size="4" color="red" >
+                    <a href={{ url_for("confirm_waitting_orders",id=order.id) }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确认发货</a>
+                </font>
+        </div>
+    {% endif %}
+
+{% endblock content %}

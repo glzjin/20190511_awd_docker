@@ -1,0 +1,8 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <h1>商品管理</h1>
+
+    <a href={{ url_for("supplier_new_product") }}>添加产品</a><br>
+    <a href={{  url_for("show_supplier_product") }}>查看我的产品</a><br>
+
+{% endblock info %}

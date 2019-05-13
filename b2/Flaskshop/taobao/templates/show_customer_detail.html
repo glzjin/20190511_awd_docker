@@ -1,0 +1,31 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <h1>我的收货地址</h1><br>
+    {% if details %}
+        <a href={{ url_for("new_customer_detail") }}>继续 添加地址</a>
+        {% for detail in details %}
+            <div>
+            <a>----------------------------------------------</a><br>
+                {% if detail.is_default == 1%}
+                    <a >这是你的默认地址</a><br><br>
+                {% else %}
+                    <a href={{ url_for("set_customer_detail_default",id=detail.id) }}>设置为默认地址</a><br><br>
+                {% endif %}
+                <a >收货人：{{ detail.consignee }}</a><br>
+                <a >地址：{{ detail.address }}</a><br>
+                <a >电话：{{ detail.telephone }}
+
+                    <a href={{ url_for("update_customer_detail",id=detail.id) }}>修改地址</a>
+                    <a href={{ url_for("delete_customer_detail",id=detail.id) }}>删除地址</a>
+
+                </a><br>
+            <a>----------------------------------------------</a><br>
+            <br>
+            <br>
+            </div>
+        {% endfor %}
+        {% else %}
+        <a href={{ url_for("new_customer_detail") }}>尚未添加任何收货地址 -> 添加地址</a>
+    {% endif %}
+    
+{% endblock info %}

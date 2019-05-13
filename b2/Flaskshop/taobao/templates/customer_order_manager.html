@@ -1,0 +1,7 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <h1> 我的订单管理</h1><br>
+    <a href={{ url_for("waitting_orders") }}> 等待发货的订单</a><br><br>
+    <a href={{ url_for("traning_orders") }}> 等待确认收货的订单</a><br><br>
+    <a href={{ url_for("completed_orders") }}> 完成交易的订单</a><br><br>
+{% endblock info %}

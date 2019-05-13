@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="content-section">
+        <h1>{{ supplier.supplier_name }}</h1><br>
+         <a>电话：{{ supplier.telephone }}</a><br>
+        <a>地址：{{ supplier.address }}</a><br>
+    </div>
+    {% if products %}
+        {% for product in products %}
+            <div class="content-section">
+
+                <a >商品名称：{{ product.name }}</a><br>
+                <a >商品类别：{{ product.sort }}</a><br>
+                <a >商品价格：{{ product.price }}</a><br>
+                <a >商品细节：{{ product.detail }}</a><br>
+                <a >商品剩余库存量：{{ product.product_count }}</a><br>
+                    {% if current_user.table_name =="Customer" %}
+                        <a href={{ url_for("add_product_shopping_car",id=product.id) }}>我想购买它</a>
+                    {% endif %}
+                <br>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock  %}

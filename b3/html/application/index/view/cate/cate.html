@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<link href="__PUBLIC__/style/lady.css" type="text/css" rel="stylesheet" />
+<!-- <link href="http://www.topthink.com/Public/static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" /> -->
+<script type='text/javascript' src='__PUBLIC__/style/ismobile.js'></script>
+</head>
+
+<body>
+
+        {include file="common/header" /}
+
+<!--顶部通栏-->
+
+
+<div class="position"><a href="{:url('index/index')}">主页</a> > <a href="{:url('cate/index',array('cateid'=>$cates['id']))}">{$cates.catename}</a> >  </div>
+
+<div class="overall">
+
+	<div class="left">
+				
+		{volist name="articleres" id="vo"}
+		<div class="xnews2">
+		<div class="pic"><a target="_blank" href="{:url('article/index',array('arid'=>$vo['id']))}">
+		<img src="{if condition="$vo['pic'] neq ''"}__IMG__{$vo.pic}{else /}__PUBLIC__/images/error.png{/if}" alt=""/>
+		</a></div>
+		<div class="dec">
+		<h3><a target="_blank" href="{:url('article/index',array('arid'=>$vo['id']))}">{$vo.title}</a></h3>
+		<div class="time">发布时间：{$vo['time']|date="Y-m-d",###}</div>
+		<p>{$vo.desc}</p>
+		<div class="time">
+		<?php
+			$arr=explode(',', $vo['keywords']);
+			foreach ($arr as $k=>$v) {
+				echo "<a href='http://127.0.0.1/tp5/public/index.php/index/search/index?keywords=$v'>$v</a>";
+			}
+		?>
+		</div>
+		</div>
+		</div>
+		{/volist}
+
+				
+				<div class="pages">
+				<div class="plist" >
+{$articleres->render()}
+				</div>
+				</div>
+	</div>
+	
+	{include file="common/right" /}
+	
+</div>
+{include file="common/foot" /}
+
+</body>
+</html>

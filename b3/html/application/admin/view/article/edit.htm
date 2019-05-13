@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html><head>
+        <meta charset="utf-8">
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__PUBLIC__/style/bootstrap.css" rel="stylesheet">
+    <link href="__PUBLIC__/style/font-awesome.css" rel="stylesheet">
+    <link href="__PUBLIC__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__PUBLIC__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/style/demo.css" rel="stylesheet">
+    <link href="__PUBLIC__/style/typicons.css" rel="stylesheet">
+    <link href="__PUBLIC__/style/animate.css" rel="stylesheet">
+    <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
+    
+</head>
+<body>
+    <!-- 头部 -->
+    {include file="common/top"}
+
+    <!-- /头部 -->
+    
+    <div class="main-container container-fluid">
+        <div class="page-container">
+                        <!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                        <li>
+                        <a href="#">系统</a>
+                    </li>
+                                        <li>
+                        <a href="{:url('article/lst')}">文章管理</a>
+                    </li>
+                                        <li class="active">修改文章</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">修改文章</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="" enctype="multipart/form-data" method="post">
+                        <input type="hidden" name="id" value="{$articles.id}">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">文章标题</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="title" placeholder="" name="title" value="{$articles.title}"  type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">文章作者</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="author" placeholder="" name="author"  value="{$articles.author}" type="text">
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">关键字</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" id="keywords" placeholder="" name="keywords" value="{$articles.keywords}" type="text">
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">文章描述</label>
+                            <div class="col-sm-6">
+                                <textarea name="desc" class="form-control">{$articles.desc}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">缩略图</label>
+                            <div class="col-sm-6">
+                                <input id="pic" placeholder="" name="pic" style="display:inline;" type="file">
+                                {if condition="$articles['pic'] neq ''"}
+                                    <img src="__IMG__{$articles.pic}" height="50">
+                                {else /}
+                                    <span>暂无缩略图</span>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">所属栏目</label>
+                            <div class="col-sm-6">
+                                <select name="cateid">
+                                    <option value="">请选择栏目</option>
+                                    {volist name="cateres" id="vo"}
+                                    <option {if condition="$vo['id'] eq $articles['cateid']"}selected="selected"{/if} value="{$vo.id}">{$vo.catename}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填<div></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">是否推荐</label>
+                            <div class="col-sm-6">
+                                 <label>
+                                    <input {if condition="$articles['state'] eq 1"}checked="checked"{/if} class="checkbox-slider colored-darkorange" name="state" type="checkbox">
+                                    <span class="text"></span>
+                                 </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">文章内容</label>
+                            <div class="col-sm-6">
+                                 <label>
+                                    <textarea name="content"  id="content">{$articles.content}</textarea>
+                                 </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>  
+    </div>
+
+        <!--Basic Scripts-->
+    <script src="__PUBLIC__/style/jquery_002.js"></script>
+    <script src="__PUBLIC__/style/bootstrap.js"></script>
+    <script src="__PUBLIC__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__PUBLIC__/style/beyond.js"></script>
+    <script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    UE.getEditor('content',{initialFrameWidth:1000,initialFrameHeight:400,});
+    
+
+
+</script>
+
+
+</body></html>

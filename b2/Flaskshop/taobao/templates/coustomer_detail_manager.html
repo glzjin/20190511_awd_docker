@@ -1,0 +1,6 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <h1>收货地址管理</h1><br>
+    <a href={{ url_for("new_customer_detail") }}>添加我的收货地址</a><br>
+    <a href={{ url_for("show_customer_detail") }}>查看我的收货地址</a><br>
+{% endblock info %}

@@ -1,0 +1,10 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <a href="#"></a><br>
+    <a href="#"></a><br>
+    <a href={{ url_for("supplier_product_manager") }}>管理我的商品</a><br>
+    <a href={{ url_for("supplier_crew_manager") }}>管理雇员</a><br>
+    <a href={{ url_for("security_check") }}>管理我的基本信息</a><br>
+    <a href={{ url_for("update_supplier_info") }}>完善我的其他信息</a><br>
+
+{% endblock info %}

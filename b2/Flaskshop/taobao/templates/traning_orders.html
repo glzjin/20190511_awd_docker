@@ -1,0 +1,19 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <h1> 送货中的订单</h1><br>
+    {% if orders %}
+        {% for order in orders %}
+            <div class="content-section">
+            <a >订单编号：{{ order.id}}</a><br>
+            <a >下单时间：{{ order.start_time}}</a><br>
+            <a >订单价格：{{ order.total_price }}</a><br>
+            <a >订单的状态：成功发货，正在派送</a><br>
+            <a href={{ url_for("show_order_details",id=order.id) }}>订单详情</a><br><br>
+            <a href={{ url_for("confirm_traning_orders",id=order.id) }}>我很满意，确认收货</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <a >空空如也，什么也没有哦。</a>
+    {% endif %}
+
+{% endblock info %}

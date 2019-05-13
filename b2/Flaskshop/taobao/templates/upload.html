@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>upload</title>
+</head>
+<body>
+    <h1>文件上传</h1>
+    <form action="" enctype='multipart/form-data' method='POST'>
+        <input type="file" name="file">
+        <input type="submit" value="上传">
+    </form>
+     {{msg}}
+</body>
+</html>
+
+{% endblock content %}

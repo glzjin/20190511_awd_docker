@@ -1,0 +1,22 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <h1> 等待发货的订单</h1><br>
+    {% if orders %}
+        {% for order in orders %}
+            <div class="content-section">
+            <a >订单编号：{{ order.id}}</a><br>
+            <a >下单时间：{{ order.start_time}}</a><br>
+            <a >订单价格：{{ order.total_price }}</a><br>
+            <a >订单的状态：应经成功付款，但尚未发货</a><br>
+                <a href={{ url_for("show_order_details",id=order.id) }}>订单详情</a>
+
+                <font size="4" color="red" >
+                    <a href={{ url_for("cancel_orders",id=order.id) }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;取消订单</a>
+                </font>
+            </div>
+        {% endfor %}
+    {% else %}
+        <a >空空如也，什么也没有哦。</a>
+    {% endif %}
+
+{% endblock info %}

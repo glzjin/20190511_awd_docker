@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <h1>我的购物车</h1><br>
+    </div>
+        {% if orderdetails %}
+            <div class="content-section">
+            {%  if customer_detail_default %}
+                        <a href={{  url_for("customer_detail_manager",username=current_user.username)}}>已经设置了默认地址 查看</a><br>
+                        {% else %}
+                        <a href={{  url_for("customer_detail_manager",username=current_user.username)}}>尚未设置默认地址 前往设置</a><br>
+                    {% endif %}
+            <font size="5" color="green">
+
+                    <a href={{ url_for("confirm_order",id =shopping_car.id) }}>已经付款,确认下单<a>&nbsp;&nbsp;&nbsp;&nbsp;总价格：{{ shopping_car.total_price }}</a></a>
+                </font><br>
+            </div>
+            {% for detail in orderdetails %}
+            <div class="content-section">
+            <br>
+
+            <a >商家：{{ detail.product.supplier.first().supplier_name}}</a><br>
+                <a >商品：{{ detail.product.name }}</a><br>
+                <a >价格：{{ detail.product.price }}</a><br>
+                <a >订购数量：{{ detail.product_count}}</a><br>
+                <a >剩余库存量：{{ detail.product.product_count }}</a><br><br>
+                <div >
+                <a href={{ url_for("delete_product_from_shopping_car",id=detail.product.id) }}>移出购物车&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                 <a href={{ url_for("add_by_10",id=detail.product.id) }}>增加 10个&nbsp;&nbsp;&nbsp;&nbsp; </a>
+                <a href={{ url_for("add_by_1",id=detail.product.id) }}>增加 1个 &nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <a href={{ url_for("delete_by_1",id=detail.product.id) }}>减少 1个 &nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <a href={{ url_for("delete_by_10",id=detail.product.id) }}>减少 10个&nbsp;&nbsp;&nbsp;&nbsp; </a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="content-section">
+            <a href={{ url_for("home") }}>你的购物车空空如也！不如去商品市场采购一波？</a>
+            </div>
+        {% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <h1>我的产品列表</h1><br>
+    {% if products %}
+        <a href={{ url_for("supplier_new_product") }}>继续 添加产品</a>
+        {% for product in products %}
+            <div class="content-section">
+
+                <a >商品名称：{{ product.name }}</a><br>
+                <a >商品类别：{{ product.sort }}</a><br>
+                <a >商品价格：{{ product.price }}</a><br>
+                <a >商品细节：{{ product.detail }}</a><br>
+                <a >商品剩余库存量：{{ product.product_count }}</a><br>
+                <a>----------------------------------------------</a><br>
+                    <a href={{ url_for("supplier_update_product",id=product.id) }}>修改商品信息</a>
+                    <a href={{ url_for("supplier_delete_product",id=product.id) }}>删除产品信息</a>
+                    <a href={{ url_for("supplier_add_product_count",id=product.id) }}>增加库存</a>
+                <br>
+
+            <br>
+            <br>
+            </div>
+        {% endfor %}
+        {% else %}
+        <a href={{ url_for("supplier_new_product") }}>尚未添加任何商品 点击此处添加</a>
+    {% endif %}
+    
+{% endblock info %}

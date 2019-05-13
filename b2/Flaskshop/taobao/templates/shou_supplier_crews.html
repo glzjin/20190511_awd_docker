@@ -1,0 +1,21 @@
+{% extends "account_layout.html" %}
+{% block info %}
+    <h1>我的雇员列表</h1><br>
+    {% if crews %}
+        {% for crew in crews %}
+            <div class="content-section">
+
+                <a >雇员名称：{{ crew.crew_name }}</a><br>
+                <a >地址：{{ crew.address }}</a><br>
+                <a >电话：{{ crew.telephone }}</a><br>
+
+                    <a href={{ url_for("supplier_delete_crew",id=crew.id) }}>解雇员工</a>
+                <br>
+
+            </div>
+        {% endfor %}
+        {% else %}
+        <a href={{ url_for("crew_market") }}>没有人哦 人才市场看看吧</a>
+    {% endif %}
+    
+{% endblock info %}

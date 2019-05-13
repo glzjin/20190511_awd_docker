@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <h1>人才市场</h1>
+</div>
+    <div>
+    {% if crews%}
+        {% for crew in crews %}
+            <div class="content-section">
+                <br>
+                <p1 class="article-title">求职人：{{ crew.crew_name }}</p1><br>
+                <p2 class="article-content">求职宣言：{{crew.massage }}</p2><br>
+                <br>
+            {% if current_user.table_name =="Supplier" %}
+                <br><a href={{ url_for("request_crew",crew_id=crew.id) }}>我想录用他</a>
+            {% endif %}
+
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <div class="content-section">
+            <h1>今天的人才都被老板带走了 下次早点过来吧！</h1>
+        </div>
+    {% endif %}
+
+    </div>
+
+
+
+{% endblock content %}
