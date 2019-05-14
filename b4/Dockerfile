@@ -36,6 +36,8 @@ RUN chmod -R 777 /var/www/html
 
 RUN mkdir /var/run/sshd
 
+RUN echo 'flag{glzjin_wants_a_girl_friend}' > /flag.txt
+
 EXPOSE 80
 EXPOSE 22
 

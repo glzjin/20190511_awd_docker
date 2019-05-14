@@ -17,7 +17,7 @@ RUN pip3 install flask_bcrypt
 RUN pip3 install flask_login
 RUN pip3 install flask_mail
 RUN pip3 install flask_wtf
-RUN pip3 install pyyaml
+RUN pip3 install pyyaml==3.12
 
 ADD ./default /etc/nginx/sites-enabled/
 
