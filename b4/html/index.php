@@ -5,7 +5,6 @@ include "./lib/base.php";
 include "./include/log1.php";
 
 
-
 ini_set("display_errors","On");
 
 $c=isset($_GET['c'])?$_GET['c']:'User';

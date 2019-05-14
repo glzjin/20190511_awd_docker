@@ -1,36 +1,42 @@
-FROM phusion/baseimage
+FROM ubuntu:14.04
 
-RUN rm -f /etc/service/sshd/down
+COPY html/ /var/www/html/
+
+RUN sed -i 's/http:\/\/archive.ubuntu.com\/ubuntu\//http:\/\/mirrors.tuna.tsinghua.edu.cn\/ubuntu\//g' /etc/apt/sources.list && \
+    sed -i '/security/d' /etc/apt/sources.list && \
+    apt-get update -y && \
+    apt-get -yqq install supervisor mariadb-server apache2 php5 libapache2-mod-php5 \
+    php5-mysql php5-mcrypt ssh && \
+    # config
+    sed -i "154s/Indexes//" /etc/apache2/apache2.conf && \
+    sed -i "165s/Indexes//" /etc/apache2/apache2.conf && \
+    /etc/init.d/apache2 start && \
+    # mysql
+    rm -rf /var/lib/mysql && \
+    mysql_install_db --user=mysql --datadir=/var/lib/mysql && \
+    sh -c 'mysqld_safe &' && \
+    sleep 5s  && \
+    mysqladmin -uroot password '334cc35b3c704593' && \
+    mysql -e "source /var/www/html/geez.sql;" -uroot -p334cc35b3c704593
+    # supervisor
+RUN mkdir -p /var/log/supervisor && \
+    mv /var/www/html/supervisord.conf /etc/ && \
+    #
+    chown -R www-data:www-data /var/www/html/ && \
+    chmod -R 755 /var/www/html/ && \
+    rm /var/www/html/geez.sql /var/www/html/index.html && \
+    cat /dev/null > /var/www/html/log.php
+
 RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
-
-ADD ./mysql-passwd /tmp/
-ADD ./sources.list /etc/apt/
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C
-RUN apt update
-RUN apt install nginx -y
-RUN debconf-set-selections /tmp/mysql-passwd && apt install mysql-server -y
-RUN rm -rf /tmp/mysql-passwd
-
-RUN apt install php5.6-fpm php5.6-mysql -y
-
-ADD init_db.sh /tmp/init_db.sh
-RUN chmod u+x /tmp/init_db.sh
-ADD ./init.sql /root/
-RUN /tmp/init_db.sh
-
-ADD ./default /etc/nginx/sites-enabled/
-
 RUN useradd -g www-data glzjin -m && \
     password=$(openssl passwd -1 -salt 'abcdefg' '123456') && \
     sed -i 's/^glzjin:!/glzjin:'$password'/g' /etc/shadow
 
-RUN rm -f /var/www/html/index.html
-COPY ./html /var/www/html/
-RUN chown -R glzjin:www-data /var/www/html/
-RUN chmod -R 777 /var/www/html/
+RUN chmod -R 777 /var/www/html
 
+RUN mkdir /var/run/sshd
 
-RUN echo 'flag{glzjin_wants_a_girl_friend}' > /flag.txt
+EXPOSE 80
+EXPOSE 22
 
-ADD ./start.sh /etc/my_init.d/
-RUN chmod u+x /etc/my_init.d/start.sh
+ENTRYPOINT ["supervisord", "-n"]

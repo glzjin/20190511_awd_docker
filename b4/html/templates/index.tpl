@@ -79,5 +79,8 @@
 	}
 </script>
 </form>
+//隐藏个功能 嘿嘿 直接根据名字测试简历分数！
+//考察你们是用工具扫 还是自己审计代码了！
+<a href="../common/calcf.php"></a>
 </body>
 </html>
