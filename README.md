@@ -1,5 +1,8 @@
 # 20190511_awd_docker
 
+[<img src="https://api.gitsponsors.com/api/badge/img?id=186425396" height="20">](https://api.gitsponsors.com/api/badge/link?p=eKPIakxNFNqN/MxGXBNUbdtPM/8H0y5xTsKihqUGr4EHJSmjTeCEiu4tljVNA6FB)
+
+
 ## 说明
 
 2019 年 5 月 11 日防灾科技学院 “应急挑战杯” 大学生网络安全邀请赛 AWD 靶机题目。
